@@ -41,3 +41,11 @@ def test_file_classification():
     assert is_source_file("src/db.py")
     assert not is_source_file("README.md")
     assert not is_source_file("tests/test_db.py")
+
+
+def test_annotate_patch_numbers_added_lines():
+    from revisor.diff import annotate_patch
+
+    annotated = annotate_patch(parse_diff(SAMPLE)[0].patch)
+    assert "L11: +" in annotated
+    assert "L12: +" in annotated

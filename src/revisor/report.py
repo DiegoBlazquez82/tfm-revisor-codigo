@@ -11,12 +11,19 @@ _LABEL = {"security": "Seguridad", "smells": "Calidad", "tests": "Tests"}
 _ICON = {"high": "🔴", "medium": "🟠", "low": "🟡"}
 
 
+_AGENT_PRIORITY = {"security": 0, "smells": 1, "tests": 2}
+
+
 def aggregate(findings: list[Finding]) -> list[Finding]:
-    """Quita duplicados y ordena por gravedad."""
+    """Una sola entrada por (fichero, línea): gana la más grave y, a igualdad, la de seguridad."""
+    ranked = sorted(
+        findings, key=lambda f: (_ORDER[f.severity], _AGENT_PRIORITY.get(f.agent, 9))
+    )
     seen: set[tuple[str, int | None, str]] = set()
     unique: list[Finding] = []
-    for item in findings:
-        key = (item.file, item.line, item.title.strip().lower())
+    for item in ranked:
+        # Sin línea no se puede afirmar que sea el mismo problema: se distingue por título.
+        key = (item.file, item.line, "" if item.line else item.title.strip().lower())
         if key in seen:
             continue
         seen.add(key)

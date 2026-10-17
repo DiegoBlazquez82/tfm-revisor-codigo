@@ -55,6 +55,26 @@ def parse_diff(text: str) -> list[ChangedFile]:
     return files
 
 
+def annotate_patch(patch: str) -> str:
+    """Antepone `L<n>:` a las líneas añadidas para que el modelo pueda citar la línea exacta."""
+    out: list[str] = []
+    new_line = 0
+    for raw in patch.splitlines():
+        match = _HUNK.match(raw)
+        if match:
+            new_line = int(match.group(1))
+            out.append(raw)
+        elif raw.startswith("+"):
+            out.append(f"L{new_line}: {raw}")
+            new_line += 1
+        elif raw.startswith("-"):
+            out.append(raw)
+        else:
+            out.append(raw)
+            new_line += 1
+    return "\n".join(out) + "\n"
+
+
 def is_test_file(path: str) -> bool:
     lowered = path.lower().replace("\\", "/")
     name = lowered.rsplit("/", 1)[-1]

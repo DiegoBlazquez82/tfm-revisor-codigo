@@ -22,6 +22,9 @@ def build_llm():
 
 
 def main(argv: list[str] | None = None) -> int:
+    # El informe lleva emojis; en consolas Windows (cp1252) fallaría al imprimir.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(prog="revisor")
     sub = parser.add_subparsers(dest="command", required=True)
     review = sub.add_parser("review", help="Revisa un diff y genera el informe")

@@ -74,3 +74,20 @@ def test_review_of_empty_diff_does_not_call_the_model():
 
 def test_render_markdown_without_findings():
     assert "No se han encontrado problemas" in render_markdown([], 2, False)
+
+
+def test_untested_code_gets_deterministic_finding_without_calling_the_model():
+    from revisor.agents import untested_code_findings
+
+    findings = untested_code_findings(parse_diff(SAMPLE))
+    assert [f.title for f in findings] == ["Código modificado sin tests"]
+    assert findings[0].agent == "tests"
+    assert findings[0].severity == "medium"
+
+
+def test_no_untested_warning_when_a_test_is_touched():
+    from revisor.agents import untested_code_findings
+    from revisor.diff import ChangedFile
+
+    files = [ChangedFile(path="app/db.py"), ChangedFile(path="tests/test_db.py")]
+    assert untested_code_findings(files) == []
