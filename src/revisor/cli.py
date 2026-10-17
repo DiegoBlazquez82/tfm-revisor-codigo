@@ -15,7 +15,7 @@ from .models import LLMFindings
 
 
 def build_llm():
-    model = os.environ.get("OLLAMA_MODEL", "qwen2.5-coder:7b")
+    model = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
     base_url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
     chat = ChatOllama(model=model, base_url=base_url, temperature=0)
     return chat.with_structured_output(LLMFindings)
