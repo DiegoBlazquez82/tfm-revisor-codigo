@@ -1,0 +1,37 @@
+name: Revisión del PR con agentes
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# Permisos mínimos: leer el código y comentar en el PR.
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # No se ejecuta en PRs de forks: ahí GITHUB_TOKEN no puede comentar y no se debe
+    # ejecutar código no confiable en un runner propio.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Runner propio con Ollama instalado (etiqueta "ollama").
+    runs-on: [self-hosted, ollama]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+      - name: Revisar y comentar
+        run: >
+          uv run revisor review
+          --repo "${{ github.repository }}"
+          --pr "${{ github.event.pull_request.number }}"
+          --post
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OLLAMA_BASE_URL: http://localhost:11434
+          OLLAMA_MODEL: qwen2.5-coder:7b
