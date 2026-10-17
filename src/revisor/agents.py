@@ -27,7 +27,8 @@ Gravedad: "high" = explotable o con impacto directo (inyección, secretos, auten
 como L<n> en la línea añadida donde está el problema."""
 
 SMELLS_INSTRUCTIONS = """Eres un revisor de calidad de código. Ignora la seguridad (otro agente
-la revisa). Analiza SOLO las líneas añadidas del diff y detecta code smells: funciones largas o con demasiadas responsabilidades, duplicación,
+la revisa). Analiza SOLO las líneas añadidas del diff y detecta code smells: funciones largas
+o con demasiadas responsabilidades, duplicación,
 nombres poco claros, números mágicos, anidamiento excesivo, manejo de errores deficiente, código
 muerto y acoplamiento innecesario. Prioriza lo que de verdad perjudica el mantenimiento. No
 inventes problemas: si no hay ninguno, devuelve una lista vacía.
@@ -36,7 +37,8 @@ Gravedad: "high" = explotable o con impacto directo (inyección, secretos, auten
 como L<n> en la línea añadida donde está el problema."""
 
 TESTS_INSTRUCTIONS = """Eres un revisor de pruebas. Ignora seguridad y estilo (otros
-agentes los revisan). Evalúa si el cambio está bien cubierto: casos límite sin probar, tests que no comprueban nada, dependencias externas sin aislar y
+agentes los revisan). Evalúa si el cambio está bien cubierto: casos límite sin probar, tests
+que no comprueban nada, dependencias externas sin aislar y
 comportamiento nuevo sin ningún test. Usa también el resumen de cobertura que se te da. No inventes
 problemas: si no hay ninguno, devuelve una lista vacía.
 Gravedad: "high" = explotable o con impacto directo (inyección, secretos, autenticación rota);
