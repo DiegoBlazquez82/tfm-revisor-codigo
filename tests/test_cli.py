@@ -9,7 +9,14 @@ class FakeStructured:
     def invoke(self, messages):
         return LLMFindings(
             findings=[
-                LLMFinding(file="app/db.py", line=11, severity="high", title="SQLi", detail="d")
+                LLMFinding(
+                    file="app/db.py",
+                    line=11,
+                    severity="high",
+                    title="SQLi",
+                    evidence="SELECT * FROM users WHERE id =",
+                    detail="d",
+                )
             ]
         )
 

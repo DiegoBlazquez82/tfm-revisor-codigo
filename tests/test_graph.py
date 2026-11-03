@@ -23,6 +23,7 @@ SQLI = LLMFinding(
     line=11,
     severity="high",
     title="Inyección SQL",
+    evidence='SELECT * FROM users WHERE id =',
     detail="La consulta se construye concatenando entrada del usuario.",
     suggestion="Usa parámetros enlazados.",
 )

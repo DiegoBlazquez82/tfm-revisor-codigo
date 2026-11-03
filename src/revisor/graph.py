@@ -17,6 +17,7 @@ class ReviewState(TypedDict, total=False):
     files: list[ChangedFile]
     findings: Annotated[list[Finding], operator.add]
     errors: Annotated[list[str], operator.add]
+    dropped: Annotated[list[str], operator.add]
     report: str
 
 
@@ -45,8 +46,10 @@ def review_state(diff_text: str, llm: StructuredLLM) -> dict[str, Any]:
     """Ejecuta el grafo y devuelve el estado final (hallazgos crudos, errores e informe)."""
     files = parse_diff(diff_text)
     if not files:
-        return {"files": [], "findings": [], "errors": [], "report": render_markdown([], 0)}
-    return build_graph(llm).invoke({"files": files, "findings": [], "errors": []})
+        empty = {"files": [], "findings": [], "errors": [], "dropped": []}
+        return {**empty, "report": render_markdown([], 0)}
+    initial = {"files": files, "findings": [], "errors": [], "dropped": []}
+    return build_graph(llm).invoke(initial)
 
 
 def review_diff(diff_text: str, llm: StructuredLLM) -> str:

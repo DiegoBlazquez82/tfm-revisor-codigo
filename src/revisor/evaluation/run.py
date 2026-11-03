@@ -59,6 +59,7 @@ def run_models(args: argparse.Namespace) -> int:
                 "category": built.category,
                 "seconds": round(seconds, 2),
                 "errors": state.get("errors", []),
+                "dropped": state.get("dropped", []),
                 "expected": _expected_to_json(built.expected),
                 "predicted": _predicted_to_json(predicted),
             }
