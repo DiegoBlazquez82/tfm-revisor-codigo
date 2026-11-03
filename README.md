@@ -1,19 +1,19 @@
 # Revisor de código con agentes
 
-Sistema multi-agente que revisa un pull request y publica un único comentario con los hallazgos
-de seguridad (OWASP), calidad de código y pruebas. Trabajo Final de Máster del Máster en
-Desarrollo con IA.
+Trabajo Final de Máster — Máster en Desarrollo con IA (BIG School).
 
-## Qué hace
+## 1. Descripción general
+
+Sistema multi-agente que revisa automáticamente un *pull request* y publica **un único comentario**
+con los hallazgos de **seguridad (OWASP Top 10)**, **calidad de código** y **pruebas**.
+
+La revisión de código es un cuello de botella y los revisores humanos pasan por alto cuestiones
+repetitivas (secretos escritos en el código, inyecciones, falta de tests). Este proyecto ofrece una
+primera revisión rápida y consistente que ayuda al revisor humano, **sin sustituirlo**. Se ejecuta en
+GitHub Actions con un modelo de lenguaje **local** (Ollama), de modo que el código no sale de la red.
 
 Un grafo de [LangGraph](https://langchain-ai.github.io/langgraph/) lanza tres agentes en paralelo
 sobre el diff del PR y un agregador junta sus resultados:
-
-| Agente | Revisa |
-|---|---|
-| `security` | OWASP Top 10 y secretos en el código |
-| `smells` | Code smells y mantenibilidad |
-| `tests` | Cobertura del cambio y calidad de las pruebas |
 
 ```
 diff del PR ──► security ─┐
@@ -21,23 +21,39 @@ diff del PR ──► security ─┐
             └─► tests    ─┘
 ```
 
-El informe ordena los hallazgos por gravedad, cita fichero y línea, y se actualiza en cada push
-en lugar de añadir comentarios nuevos. Ejemplo de salida:
+Ejemplo de salida:
 
 ```
 🔴 [Seguridad] Inyección SQL — `app/users.py`:7
-La consulta SQL no utiliza parámetros parametrizados, lo que permite inyección SQL.
+La función `find_user` concatena el parámetro `name` en la consulta SQL.
 
 🟠 [Tests] Código modificado sin tests — `app/users.py`
 ```
 
-## Inicio rápido
+## 2. Stack tecnológico
 
-Requisitos: [uv](https://docs.astral.sh/uv/) (instala Python 3.11 si falta) y un servidor
-[Ollama](https://ollama.com) con un modelo que admita salida estructurada.
+| Capa | Tecnología |
+|---|---|
+| Lenguaje | Python 3.11 |
+| Orquestación de agentes | [LangGraph](https://langchain-ai.github.io/langgraph/) |
+| Modelo de lenguaje | [Ollama](https://ollama.com) con `qwen2.5:7b-instruct` (vía `langchain-ollama`) |
+| Validación de la salida | Pydantic |
+| API de GitHub | httpx |
+| Gestión del proyecto | [uv](https://docs.astral.sh/uv/) |
+| Pruebas y calidad | pytest, ruff |
+| Integración continua | GitHub Actions |
+| Evaluación (solo desarrollo) | Bandit, Ruff como líneas base |
+
+## 3. Instalación y ejecución
+
+Requisitos: [uv](https://docs.astral.sh/uv/) (instala Python 3.11 si falta) y un servidor Ollama con
+un modelo que admita salida estructurada (`ollama pull qwen2.5:7b-instruct`).
 
 ```bash
+git clone <URL del repositorio>
+cd tfm-revisor-codigo
 uv sync
+
 uv run pytest                  # no necesita Ollama: los tests usan un modelo falso
 uv run ruff check .
 
@@ -50,40 +66,74 @@ uv run revisor review --diff-file examples/vulnerable.diff
 uv run revisor review --repo owner/repo --pr 12 --post
 ```
 
-### Configuración
-
 | Variable | Por defecto | Uso |
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://localhost:11434` | Servidor Ollama |
 | `OLLAMA_MODEL` | `qwen2.5:7b-instruct` | Modelo de los tres agentes |
 | `GITHUB_TOKEN` | — | Solo con `--repo`/`--pr`; en Actions lo aporta GitHub |
+| `REVISOR_COMMENT_AUTHORS` | `github-actions[bot]` | Autores cuyo comentario se actualiza |
+
+Para ejecutarlo en cada PR hay que registrar un runner propio con la etiqueta `ollama`; ver
+[docs/despliegue.md](docs/despliegue.md).
+
+## 4. Estructura del proyecto
+
+```
+src/revisor/              código del revisor
+  cli.py                  línea de comandos (`revisor review ...`)
+  graph.py                grafo LangGraph: tres agentes en paralelo + agregador
+  agents.py               prompts y fábrica de los agentes
+  diff.py                 parseo del diff y numeración de líneas
+  models.py               esquemas Pydantic de los hallazgos
+  report.py               deduplicación, orden y comentario en Markdown
+  github.py               cliente de la API de GitHub (leer diff, comentar)
+  evaluation/             arnés de evaluación (casos, puntuación, líneas base)
+tests/                    tests automáticos (sin red ni modelo)
+examples/                 diffs de ejemplo (uno con inyección de prompts)
+eval/                     casos exportados y resultados de la evaluación
+docs/                     documentación
+.github/workflows/        CI y revisión automática de PRs
+```
+
+## 5. Funcionalidades principales
+
+- **Revisión de seguridad** según OWASP Top 10 y detección de secretos escritos en el código.
+- **Revisión de calidad**: code smells (anidamiento, funciones largas, números mágicos, duplicación…).
+- **Revisión de pruebas**: tests sin aserciones, dependencias externas sin aislar y aviso
+  determinista de «código modificado sin tests».
+- **Informe único y limpio**: hallazgos ordenados por gravedad, con fichero y línea, deduplicados.
+  Se actualiza en cada push en vez de añadir comentarios nuevos.
+- **Robusto**: si un agente falla, el informe lo dice y no afirma que todo esté bien; los diffs
+  grandes se recortan y se lista qué no se revisó.
+- **Seguro**: se ejecuta desde la rama base del repositorio, trata el contenido del PR como no
+  confiable y escapa todo lo que publica. Ver [docs/amenazas.md](docs/amenazas.md).
+- **Evaluado**: 29 casos etiquetados, comparación con Bandit y Ruff y entre tres modelos. Ver
+  [docs/evaluacion.md](docs/evaluacion.md).
+
+## 6. Usuario y contraseña de prueba
+
+**No aplica**: el proyecto no tiene login. Es una herramienta de línea de comandos y un workflow de
+GitHub Actions.
+
+## Enlaces de la entrega
+
+| Entregable | Enlace |
+|---|---|
+| Repositorio público de GitHub | **[PENDIENTE: URL]** |
+| Despliegue / acceso al proyecto en funcionamiento | **[PENDIENTE: URL de un PR con el comentario del revisor]** |
+| Slides de la presentación | **[PENDIENTE: URL]** |
+| Vídeo (explicación con captura de pantalla) | **[PENDIENTE: URL]** |
 
 ## Documentación
 
 - [Arquitectura](docs/arquitectura.md): componentes, decisiones de diseño y límites.
 - [Modelo de amenazas](docs/amenazas.md): qué se asume, qué puede fallar y qué no está cubierto.
 - [Despliegue](docs/despliegue.md): runner propio, variables, seguridad y problemas frecuentes.
-- [Pruebas](docs/pruebas.md): estrategia, prueba con modelo real y qué falta por verificar.
-- [Registro de la revisión del tribunal](docs/revision-tribunal.md): estado de cada punto.
-- [Memoria del TFM](docs/memoria-tfm.md): borrador para la entrega, con las partes que debes
-  completar tú.
-
-## Integración continua
-
-- `.github/workflows/ci.yml`: lint (ruff) y tests en cada push y PR.
-- `.github/workflows/pr-review.yml`: ejecuta el revisor en cada PR del propio repositorio, con
-  permisos mínimos, en un runner propio con la etiqueta `ollama`.
-
-## Seguridad
-
-- Permisos mínimos en los workflows (`contents: read`, `pull-requests: write`).
-- El revisor se ejecuta desde la rama **base** (`pull_request_target`), nunca desde la del PR; el
-  contenido del PR solo se lee como texto (su diff).
-- El token llega por variable de entorno; nunca está en el código.
-- La salida del modelo se valida con Pydantic y se filtra antes de publicarse.
-- Los PRs de forks no se revisan automáticamente.
-- La salida del modelo se escapa antes de publicarla y el diff se trata como dato no confiable.
-  Detalle y límites en [docs/amenazas.md](docs/amenazas.md).
+- [Pruebas](docs/pruebas.md): estrategia de tests y pruebas con modelo real.
+- [Evaluación](docs/evaluacion.md) y [resultados](docs/evaluacion-resultados.md): metodología y cifras.
+- [Requisitos del TFM](docs/requisitos-tfm.md): qué pide el máster y dónde se cumple.
+- [Memoria](docs/memoria-tfm.md): estado del arte, decisiones, resultados y uso de IA.
+- [Registro de la revisión](docs/revision-tribunal.md): estado de cada punto de la revisión.
 
 ## Limitaciones
 
@@ -91,13 +141,10 @@ uv run revisor review --repo owner/repo --pr 12 --post
 - Un modelo local de 7B genera falsos positivos y se le escapan casos. Es una ayuda a la revisión
   humana, no un sustituto.
 - Cada agente ve solo el diff, no el repositorio completo.
+- La defensa frente a inyección de prompts es parcial (ver [docs/amenazas.md](docs/amenazas.md)).
 
-## Estructura
+## Uso de IA en el desarrollo
 
-```
-src/revisor/    código (diff, agentes, grafo, informe, cliente de GitHub, CLI)
-tests/          tests automáticos (sin red ni modelo)
-examples/       diffs de ejemplo
-docs/           documentación
-.github/        workflows de CI y de revisión de PR
-```
+El código, los tests y la documentación se desarrollaron con ayuda de un asistente de IA (Claude
+Code). Qué decisiones tomó el autor, qué generó el asistente y cómo se revisó está en la sección 8
+de la [memoria](docs/memoria-tfm.md#8-uso-de-ia-y-autoría).

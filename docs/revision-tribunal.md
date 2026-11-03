@@ -20,7 +20,7 @@ Las correcciones de código están en el commit que acompaña a este fichero.
 
 | Id | Estado | Qué se hizo |
 |---|---|---|
-| D1 | **Hecho, con límites** | Diff delimitado como dato (`<diff>`), regla anti-inyección en los tres prompts, delimitador inviolable, y `escape_md` para todo texto del modelo (menciones, enlaces, HTML, marca oculta, longitud). Modelo de amenazas en `docs/amenazas.md`. **Límite:** la prueba con `examples/prompt-injection.diff` no demostró que las defensas sean la causa de la resistencia (la versión anterior tampoco obedeció). |
+| D1 | **Hecho, con límites** | Diff delimitado como dato (`<diff>`), regla anti-inyección en los tres prompts, delimitador inviolable, y `escape_md` para todo texto del modelo (menciones, enlaces, HTML, marca oculta, longitud). Modelo de amenazas en `docs/amenazas.md`. **Límite:** la evaluación mostró que las defensas por prompt **no impiden** que un modelo fabrique un hallazgo por orden del código (caso `adv02`); ver `amenazas.md`. |
 | D2 | **Hecho** | Cada agente tiene su propia escala de gravedad. En la prueba real se vio que el agente de calidad marcaba todo como «alta»; se acotó («ante la duda, la más baja»). |
 | D3 | **Hecho** | Reintento por agente; si falla se conservan los hallazgos estáticos y el informe lo indica. Nunca dice «sin problemas» si algo falló u se omitió. |
 | D4 | **Hecho** | Paginación por cabecera `Link` y filtro por autor (`github-actions[bot]`, configurable con `REVISOR_COMMENT_AUTHORS`). |
@@ -28,14 +28,14 @@ Las correcciones de código están en el commit que acompaña a este fichero.
 | D6 | **Hecho** | `uv sync --locked` en ambos workflows (`uv.lock` ya estaba en el repositorio). |
 | D7 | **Hecho** | Un test por cada bug, tests de CLI con modelo falso y de recorte. Se renombró el test «…without_calling_the_model», que no comprobaba eso. |
 
-Resultado: **56 tests** y `ruff` en verde (antes, 15).
+Resultado: **74 tests** (con el arnés de evaluación) y `ruff` en verde (antes, 15).
 
-## Bloqueantes: siguen abiertos
+## Bloqueantes
 
-| Id | Estado | Por qué |
+| Id | Estado | Qué se hizo y qué falta |
 |---|---|---|
-| B4 | **Pendiente** | El PDF de criterios sigue sin leerse (el navegador lo trató como descarga). Hay que guardarlo en el proyecto o pegar sus requisitos. |
-| B1 | **Pendiente** | No existe todavía el conjunto de diffs etiquetados ni la comparación con Semgrep/Bandit y entre modelos. Solo hay dos diffs de ejemplo. Es el trabajo más grande que queda. |
-| B5 | **Pendiente** | Requiere publicar el repositorio, registrar el runner con la etiqueta `ollama` y abrir PRs reales: lo hace el autor. |
-| B2 | **Pendiente** | La memoria sigue siendo un borrador; faltan estado del arte, metodología, planificación, resultados reales, conclusiones y bibliografía. |
-| B3 | **Pendiente** | La sección debe reflejar el trabajo real del autor. Ver la nota de arriba sobre quién detectó cada error. |
+| B4 | **Hecho** | Leído el PDF oficial. Tabla criterio → evidencia en [requisitos-tfm.md](requisitos-tfm.md). **Hallazgo clave:** el PDF **no pide memoria**; pide README con 6 apartados, repositorio público, despliegue, slides, vídeo y formulario. README reescrito para seguir ese esquema. Además hay una contradicción de fechas (26/10 en el PDF frente a 30/11 en la lección) que debe aclarar el tutor. |
+| B1 | **En curso** | Arnés, 29 casos, métricas, líneas base (Bandit, Ruff) y evaluación de tres modelos construidos; ver [evaluacion.md](evaluacion.md). Falta terminar la ejecución de los dos últimos modelos y analizar. Primer resultado (qwen2.5): exhaustividad alta, precisión baja, y el caso `adv02` demostró que la inyección de prompts **sí** funciona para fabricar hallazgos (corregido en `amenazas.md`). |
+| B5 | **Pendiente** | Requiere publicar el repositorio y abrir PRs de demostración: lo hace el autor. Ver la advertencia sobre runners propios en repositorios públicos en [requisitos-tfm.md](requisitos-tfm.md). |
+| B2 | **Parcial** | Memoria ampliada: resumen, objetivos, estado del arte, relación con el máster, diseño, metodología, resultados preliminares, seguridad, limitaciones, planificación, bibliografía. Faltan los resultados finales, las conclusiones y las fechas reales, que dependen del autor y de B1. Nota: el PDF no la exige. |
+| B3 | **Parcial** | Sección 8 de la memoria reescrita con hechos: qué generó el asistente, qué decidió el autor, tabla de errores del asistente y quién los detectó, y cómo se verificó. **Lo que aporta el autor** (qué leyó y entiende, qué cambió, qué aprendió) está marcado como [COMPLETAR] y no puede rellenarlo nadie por él. |
