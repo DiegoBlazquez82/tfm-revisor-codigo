@@ -29,7 +29,7 @@ máquina (el workflow ejecuta `astral-sh/setup-uv`, pero conviene tenerlo dispon
 
 | Variable | Valor de ejemplo |
 |---|---|
-| `OLLAMA_BASE_URL` | `http://10.1.10.21:11434` |
+| `OLLAMA_BASE_URL` | `http://<servidor-ollama>:11434` |
 
 Es una **variable**, no un secreto: no es una credencial. Si no existe, el workflow usa
 `http://localhost:11434`.
