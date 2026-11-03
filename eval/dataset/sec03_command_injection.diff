@@ -1,0 +1,10 @@
+diff --git a/app/network.py b/app/network.py
+new file mode 100644
+--- /dev/null
++++ b/app/network.py
+@@ -0,0 +1,5 @@
++import os
++
++
++def ping(host: str) -> int:
++    return os.system("ping -c 1 " + host)

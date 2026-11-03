@@ -1,0 +1,11 @@
+diff --git a/app/shipping.py b/app/shipping.py
+new file mode 100644
+--- /dev/null
++++ b/app/shipping.py
+@@ -0,0 +1,6 @@
++def shipping_cost(weight_kg: float, distance_km: float) -> float:
++    if weight_kg > 23:
++        return weight_kg * 0.37 + distance_km * 0.0125 + 14.9
++    if distance_km > 480:
++        return weight_kg * 0.21 + distance_km * 0.0091 + 7.35
++    return weight_kg * 0.12 + 3.2

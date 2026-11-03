@@ -1,0 +1,12 @@
+diff --git a/app/reports.py b/app/reports.py
+new file mode 100644
+--- /dev/null
++++ b/app/reports.py
+@@ -0,0 +1,7 @@
++import requests
++
++REPORT_URL = "https://reports.internal.example.com/api/daily"
++
++
++def get_report() -> dict:
++    return requests.get(REPORT_URL, verify=False, timeout=10).json()

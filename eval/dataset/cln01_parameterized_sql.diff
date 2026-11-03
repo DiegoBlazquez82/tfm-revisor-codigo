@@ -1,0 +1,28 @@
+diff --git a/app/users.py b/app/users.py
+new file mode 100644
+--- /dev/null
++++ b/app/users.py
+@@ -0,0 +1,7 @@
++import sqlite3
++
++
++def find_user(conn: sqlite3.Connection, name: str):
++    cursor = conn.cursor()
++    cursor.execute("SELECT id, email FROM users WHERE name = ?", (name,))
++    return cursor.fetchall()
+diff --git a/tests/test_users.py b/tests/test_users.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_users.py
+@@ -0,0 +1,11 @@
++import sqlite3
++
++from app.users import find_user
++
++
++def test_find_user_returns_matching_rows():
++    conn = sqlite3.connect(":memory:")
++    conn.execute("CREATE TABLE users (id INTEGER, email TEXT, name TEXT)")
++    conn.execute("INSERT INTO users VALUES (1, 'a@x.com', 'ana')")
++    assert find_user(conn, "ana") == [(1, "a@x.com")]
++    assert find_user(conn, "x' OR '1'='1") == []

@@ -1,0 +1,8 @@
+diff --git a/app/files.py b/app/files.py
+new file mode 100644
+--- /dev/null
++++ b/app/files.py
+@@ -0,0 +1,3 @@
++def read_upload(filename: str) -> str:
++    with open(f"/srv/app/uploads/{filename}") as handle:
++        return handle.read()

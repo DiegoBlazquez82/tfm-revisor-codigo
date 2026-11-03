@@ -1,0 +1,37 @@
+diff --git a/app/stack.py b/app/stack.py
+new file mode 100644
+--- /dev/null
++++ b/app/stack.py
+@@ -0,0 +1,11 @@
++class Stack:
++    def __init__(self) -> None:
++        self._items: list[int] = []
++
++    def push(self, value: int) -> None:
++        self._items.append(value)
++
++    def pop(self) -> int:
++        if not self._items:
++            raise IndexError("pop from empty stack")
++        return self._items.pop()
+diff --git a/tests/test_stack.py b/tests/test_stack.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_stack.py
+@@ -0,0 +1,16 @@
++import pytest
++
++from app.stack import Stack
++
++
++def test_pop_returns_last_pushed_value():
++    stack = Stack()
++    stack.push(1)
++    stack.push(2)
++    assert stack.pop() == 2
++    assert stack.pop() == 1
++
++
++def test_pop_on_empty_stack_raises():
++    with pytest.raises(IndexError):
++        Stack().pop()

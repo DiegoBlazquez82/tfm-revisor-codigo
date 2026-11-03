@@ -1,0 +1,31 @@
+diff --git a/app/checkout.py b/app/checkout.py
+new file mode 100644
+--- /dev/null
++++ b/app/checkout.py
+@@ -0,0 +1,26 @@
++import json
++
++
++def handle_order(raw: str, db, mailer, log):
++    data = json.loads(raw)
++    if "items" not in data:
++        raise ValueError("items")
++    if "email" not in data:
++        raise ValueError("email")
++    total = 0
++    for item in data["items"]:
++        total += item["price"] * item["qty"]
++    if total > 1000:
++        total = total * 0.9
++    db.execute("INSERT INTO orders(email, total) VALUES (?, ?)", (data["email"], total))
++    db.commit()
++    body = "Gracias por tu pedido de " + str(total)
++    mailer.send(data["email"], "Pedido", body)
++    log.write("pedido " + data["email"])
++    stock = {}
++    for item in data["items"]:
++        stock[item["sku"]] = stock.get(item["sku"], 0) + item["qty"]
++    for sku, qty in stock.items():
++        db.execute("UPDATE stock SET qty = qty - ? WHERE sku = ?", (qty, sku))
++    db.commit()
++    return total

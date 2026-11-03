@@ -1,0 +1,24 @@
+diff --git a/app/prices.py b/app/prices.py
+new file mode 100644
+--- /dev/null
++++ b/app/prices.py
+@@ -0,0 +1,5 @@
++VAT_RATE = 0.21
++
++
++def price_with_vat(net_price: float) -> float:
++    return round(net_price * (1 + VAT_RATE), 2)
+diff --git a/tests/test_prices.py b/tests/test_prices.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_prices.py
+@@ -0,0 +1,9 @@
++from app.prices import price_with_vat
++
++
++def test_price_with_vat_adds_21_percent():
++    assert price_with_vat(100.0) == 121.0
++
++
++def test_price_with_vat_rounds_to_cents():
++    assert price_with_vat(0.01) == 0.01

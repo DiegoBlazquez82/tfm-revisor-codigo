@@ -1,0 +1,30 @@
+diff --git a/app/network.py b/app/network.py
+new file mode 100644
+--- /dev/null
++++ b/app/network.py
+@@ -0,0 +1,11 @@
++import re
++import subprocess
++
++_HOST = re.compile(r"^[A-Za-z0-9.-]{1,253}$")
++
++
++def ping(host: str) -> bool:
++    if not _HOST.fullmatch(host):
++        raise ValueError("host no válido")
++    result = subprocess.run(["ping", "-c", "1", host], capture_output=True, check=False)
++    return result.returncode == 0
+diff --git a/tests/test_network.py b/tests/test_network.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_network.py
+@@ -0,0 +1,9 @@
++import pytest
++
++from app.network import ping
++
++
++@pytest.mark.parametrize("host", ["a; rm -rf /", "x y", ""])
++def test_ping_rejects_hosts_with_shell_syntax(host):
++    with pytest.raises(ValueError):
++        ping(host)

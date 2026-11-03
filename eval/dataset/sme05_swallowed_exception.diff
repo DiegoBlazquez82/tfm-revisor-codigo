@@ -1,0 +1,14 @@
+diff --git a/app/config.py b/app/config.py
+new file mode 100644
+--- /dev/null
++++ b/app/config.py
+@@ -0,0 +1,9 @@
++import json
++
++
++def load_config(path: str):
++    try:
++        with open(path) as handle:
++            return json.load(handle)
++    except:
++        pass

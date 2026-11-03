@@ -41,10 +41,14 @@ def build_graph(llm: StructuredLLM):
     return graph.compile()
 
 
-def review_diff(diff_text: str, llm: StructuredLLM) -> str:
-    """Devuelve el comentario en Markdown para un diff unificado."""
+def review_state(diff_text: str, llm: StructuredLLM) -> dict[str, Any]:
+    """Ejecuta el grafo y devuelve el estado final (hallazgos crudos, errores e informe)."""
     files = parse_diff(diff_text)
     if not files:
-        return render_markdown([], 0)
-    result = build_graph(llm).invoke({"files": files, "findings": [], "errors": []})
-    return result["report"]
+        return {"files": [], "findings": [], "errors": [], "report": render_markdown([], 0)}
+    return build_graph(llm).invoke({"files": files, "findings": [], "errors": []})
+
+
+def review_diff(diff_text: str, llm: StructuredLLM) -> str:
+    """Devuelve el comentario en Markdown para un diff unificado."""
+    return review_state(diff_text, llm)["report"]

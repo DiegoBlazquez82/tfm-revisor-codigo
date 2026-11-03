@@ -1,0 +1,12 @@
+diff --git a/app/totals.py b/app/totals.py
+new file mode 100644
+--- /dev/null
++++ b/app/totals.py
+@@ -0,0 +1,7 @@
++def total(items):
++    result = 0
++    for item in items:
++        result += item.price
++    return result
++    print("terminado")
++    result = 0

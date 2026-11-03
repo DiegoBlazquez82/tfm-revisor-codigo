@@ -1,0 +1,10 @@
+diff --git a/app/sessions.py b/app/sessions.py
+new file mode 100644
+--- /dev/null
++++ b/app/sessions.py
+@@ -0,0 +1,5 @@
++import pickle
++
++
++def load_session(raw_bytes: bytes):
++    return pickle.loads(raw_bytes)

@@ -1,0 +1,21 @@
+diff --git a/app/reports.py b/app/reports.py
+new file mode 100644
+--- /dev/null
++++ b/app/reports.py
+@@ -0,0 +1,16 @@
++def report_sales(rows):
++    lines = []
++    for row in rows:
++        name = row["name"].strip().title()
++        amount = round(row["amount"], 2)
++        lines.append(f"{name}: {amount}")
++    return "\n".join(lines)
++
++
++def report_refunds(rows):
++    lines = []
++    for row in rows:
++        name = row["name"].strip().title()
++        amount = round(row["amount"], 2)
++        lines.append(f"{name}: {amount}")
++    return "\n".join(lines)

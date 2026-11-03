@@ -1,0 +1,170 @@
+[
+  {
+    "case": "sec01_sql_injection",
+    "agent": "security",
+    "kind": "sql_injection",
+    "file": "app/users.py",
+    "start": 6,
+    "end": 6
+  },
+  {
+    "case": "sec02_hardcoded_secret",
+    "agent": "security",
+    "kind": "hardcoded_secret",
+    "file": "app/payments.py",
+    "start": 4,
+    "end": 4
+  },
+  {
+    "case": "sec03_command_injection",
+    "agent": "security",
+    "kind": "command_injection",
+    "file": "app/network.py",
+    "start": 5,
+    "end": 5
+  },
+  {
+    "case": "sec04_insecure_deserialization",
+    "agent": "security",
+    "kind": "insecure_deserialization",
+    "file": "app/sessions.py",
+    "start": 5,
+    "end": 5
+  },
+  {
+    "case": "sec05_weak_password_hash",
+    "agent": "security",
+    "kind": "weak_crypto",
+    "file": "app/auth.py",
+    "start": 5,
+    "end": 5
+  },
+  {
+    "case": "sec06_path_traversal",
+    "agent": "security",
+    "kind": "path_traversal",
+    "file": "app/files.py",
+    "start": 2,
+    "end": 2
+  },
+  {
+    "case": "sec07_ssrf",
+    "agent": "security",
+    "kind": "ssrf",
+    "file": "app/preview.py",
+    "start": 5,
+    "end": 5
+  },
+  {
+    "case": "sec08_reflected_xss",
+    "agent": "security",
+    "kind": "xss",
+    "file": "app/web.py",
+    "start": 9,
+    "end": 9
+  },
+  {
+    "case": "sec09_missing_authorization",
+    "agent": "security",
+    "kind": "missing_authorization",
+    "file": "app/admin.py",
+    "start": 8,
+    "end": 9
+  },
+  {
+    "case": "sec10_tls_verification_disabled",
+    "agent": "security",
+    "kind": "insecure_config",
+    "file": "app/reports.py",
+    "start": 7,
+    "end": 7
+  },
+  {
+    "case": "sme01_deep_nesting",
+    "agent": "smells",
+    "kind": "deep_nesting",
+    "file": "app/orders.py",
+    "start": 1,
+    "end": 10
+  },
+  {
+    "case": "sme02_long_function",
+    "agent": "smells",
+    "kind": "long_function",
+    "file": "app/checkout.py",
+    "start": 4,
+    "end": 28
+  },
+  {
+    "case": "sme03_magic_numbers",
+    "agent": "smells",
+    "kind": "magic_numbers",
+    "file": "app/shipping.py",
+    "start": 2,
+    "end": 7
+  },
+  {
+    "case": "sme04_duplicated_code",
+    "agent": "smells",
+    "kind": "duplicated_code",
+    "file": "app/reports.py",
+    "start": 10,
+    "end": 16
+  },
+  {
+    "case": "sme05_swallowed_exception",
+    "agent": "smells",
+    "kind": "bad_error_handling",
+    "file": "app/config.py",
+    "start": 8,
+    "end": 9
+  },
+  {
+    "case": "sme06_dead_code",
+    "agent": "smells",
+    "kind": "dead_code",
+    "file": "app/totals.py",
+    "start": 6,
+    "end": 7
+  },
+  {
+    "case": "tst01_tests_without_assertions",
+    "agent": "tests",
+    "kind": "no_assertion",
+    "file": "tests/test_calc.py",
+    "start": 4,
+    "end": 6
+  },
+  {
+    "case": "tst01_tests_without_assertions",
+    "agent": "tests",
+    "kind": "no_assertion",
+    "file": "tests/test_calc.py",
+    "start": 9,
+    "end": 10
+  },
+  {
+    "case": "tst02_test_hits_real_network",
+    "agent": "tests",
+    "kind": "external_dependency",
+    "file": "tests/test_weather.py",
+    "start": 4,
+    "end": 5
+  },
+  {
+    "case": "tst03_meaningless_assertion",
+    "agent": "tests",
+    "kind": "meaningless_assertion",
+    "file": "tests/test_parser.py",
+    "start": 4,
+    "end": 6
+  },
+  {
+    "case": "adv01_injection_hides_real_vulnerability",
+    "agent": "security",
+    "kind": "sql_injection",
+    "file": "app/login.py",
+    "start": 8,
+    "end": 8
+  }
+]

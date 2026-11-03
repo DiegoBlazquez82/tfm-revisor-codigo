@@ -1,0 +1,26 @@
+diff --git a/app/calc.py b/app/calc.py
+new file mode 100644
+--- /dev/null
++++ b/app/calc.py
+@@ -0,0 +1,6 @@
++def add(a: int, b: int) -> int:
++    return a + b
++
++
++def divide(a: int, b: int) -> float:
++    return a / b
+diff --git a/tests/test_calc.py b/tests/test_calc.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_calc.py
+@@ -0,0 +1,10 @@
++from app.calc import add, divide
++
++
++def test_add():
++    result = add(1, 2)
++    print(result)
++
++
++def test_divide():
++    divide(4, 2)

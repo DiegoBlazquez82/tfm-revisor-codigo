@@ -1,0 +1,11 @@
+diff --git a/app/preview.py b/app/preview.py
+new file mode 100644
+--- /dev/null
++++ b/app/preview.py
+@@ -0,0 +1,6 @@
++import requests
++
++
++def fetch_preview(url: str) -> str:
++    response = requests.get(url, timeout=5)
++    return response.text[:500]

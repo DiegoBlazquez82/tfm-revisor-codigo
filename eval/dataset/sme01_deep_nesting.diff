@@ -1,0 +1,14 @@
+diff --git a/app/orders.py b/app/orders.py
+new file mode 100644
+--- /dev/null
++++ b/app/orders.py
+@@ -0,0 +1,9 @@
++def process(order, mode, retries):
++    if order:
++        if mode == "fast":
++            if retries > 0:
++                if order.paid:
++                    if order.items:
++                        if not order.cancelled:
++                            return order.total
++    return None

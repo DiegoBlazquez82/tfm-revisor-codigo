@@ -1,0 +1,14 @@
+diff --git a/app/admin.py b/app/admin.py
+new file mode 100644
+--- /dev/null
++++ b/app/admin.py
+@@ -0,0 +1,9 @@
++from flask import Flask, jsonify
++
++app = Flask(__name__)
++USERS = {1: {"name": "ana", "role": "admin"}, 2: {"name": "luis", "role": "user"}}
++
++
++@app.route("/admin/users")
++def list_users():
++    return jsonify(USERS)

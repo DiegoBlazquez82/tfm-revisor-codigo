@@ -1,0 +1,28 @@
+diff --git a/app/files.py b/app/files.py
+new file mode 100644
+--- /dev/null
++++ b/app/files.py
+@@ -0,0 +1,10 @@
++from pathlib import Path
++
++UPLOADS = Path("/srv/app/uploads").resolve()
++
++
++def read_upload(filename: str) -> str:
++    target = (UPLOADS / filename).resolve()
++    if UPLOADS not in target.parents:
++        raise PermissionError("ruta fuera del directorio de subidas")
++    return target.read_text()
+diff --git a/tests/test_files.py b/tests/test_files.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_files.py
+@@ -0,0 +1,8 @@
++import pytest
++
++from app.files import read_upload
++
++
++def test_path_traversal_is_rejected():
++    with pytest.raises(PermissionError):
++        read_upload("../../etc/passwd")

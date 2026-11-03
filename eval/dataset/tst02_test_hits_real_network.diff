@@ -1,0 +1,21 @@
+diff --git a/app/weather.py b/app/weather.py
+new file mode 100644
+--- /dev/null
++++ b/app/weather.py
+@@ -0,0 +1,6 @@
++import requests
++
++
++def temperature_for(city: str) -> float:
++    response = requests.get(f"https://api.weather.example.com/v1/{city}", timeout=5)
++    return response.json()["temp"]
+diff --git a/tests/test_weather.py b/tests/test_weather.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_weather.py
+@@ -0,0 +1,5 @@
++from app.weather import temperature_for
++
++
++def test_temperature_for_madrid():
++    assert temperature_for("madrid") > -50
