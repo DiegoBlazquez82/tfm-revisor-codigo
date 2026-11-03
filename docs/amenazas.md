@@ -63,10 +63,15 @@ elaborada, en otro idioma, partida entre líneas u ofuscada puede funcionar tamb
 siempre como ayuda a una revisión humana y no como veredicto. Medirlo bien requiere un conjunto de
 ataques mayor que los dos casos actuales.
 
-**Mejora propuesta (no implementada).** Exigir a cada hallazgo una **cita literal** de la línea
-afectada y descartar los que no aparezcan en las líneas añadidas del diff. Bloquearía los hallazgos
-fabricados (no habría línea que citar) y de paso reduciría los falsos positivos. Se mide antes y
-después con el mismo conjunto de evaluación.
+**Mejora probada (cita literal de la línea).** Cada hallazgo debe citar la línea añadida que lo motiva
+y se descarta si no aparece en el diff. Medida con los mismos 29 casos y `qwen2.5:7b-instruct`
+([comparación](evaluacion-comparacion.md)): **no mejoró el resultado**. Se descartaron 20 hallazgos,
+pero la precisión bajó (0,31 → 0,25) y la exhaustividad también (0,81 → 0,67); `adv02` pasó de 2 a 1
+hallazgos publicados, sin llegar a cero. Los errores semánticos (p. ej. inyección SQL en una consulta
+parametrizada) no los detecta una comprobación de texto. Es una sola ejecución con un modelo no
+determinista y el servidor estaba compartido con otra evaluación, así que el tiempo medio de v2 no es
+comparable. Conclusión: la medida se mantiene como defensa parcial contra hallazgos inventados, no
+como mejora de calidad.
 
 ### A3. La salida del modelo se publica en el PR
 
