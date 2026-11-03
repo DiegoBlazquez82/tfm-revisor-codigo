@@ -1,0 +1,898 @@
+{
+  "name": "qwen2.5:7b-instruct",
+  "kind": "model",
+  "date": "2026-11-03",
+  "cases": [
+    {
+      "id": "sec01_sql_injection",
+      "category": "security",
+      "seconds": 10.15,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec01_sql_injection",
+          "agent": "security",
+          "kind": "sql_injection",
+          "file": "app/users.py",
+          "start": 6,
+          "end": 6
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/users.py",
+          "line": 6,
+          "title": "Inyección SQL"
+        },
+        {
+          "agent": "smells",
+          "file": "app/users.py",
+          "line": 6,
+          "title": "Nombres poco claros y uso de cadenas fijas"
+        },
+        {
+          "agent": "tests",
+          "file": "app/users.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec02_hardcoded_secret",
+      "category": "security",
+      "seconds": 9.78,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec02_hardcoded_secret",
+          "agent": "security",
+          "kind": "hardcoded_secret",
+          "file": "app/payments.py",
+          "start": 4,
+          "end": 4
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/payments.py",
+          "line": 3,
+          "title": "Clave secreta expuesta en el código fuente"
+        },
+        {
+          "agent": "smells",
+          "file": "app/payments.py",
+          "line": 7,
+          "title": "Nombres poco claros"
+        },
+        {
+          "agent": "smells",
+          "file": "app/payments.py",
+          "line": 10,
+          "title": "Manejo de errores deficiente"
+        },
+        {
+          "agent": "tests",
+          "file": "app/payments.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec03_command_injection",
+      "category": "security",
+      "seconds": 10.79,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec03_command_injection",
+          "agent": "security",
+          "kind": "command_injection",
+          "file": "app/network.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/network.py",
+          "line": 4,
+          "title": "Inyección de comandos"
+        },
+        {
+          "agent": "smells",
+          "file": "app/network.py",
+          "line": 4,
+          "title": "Nombres poco claros"
+        },
+        {
+          "agent": "smells",
+          "file": "app/network.py",
+          "line": 4,
+          "title": "Manejo de errores deficiente"
+        },
+        {
+          "agent": "tests",
+          "file": "app/network.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec04_insecure_deserialization",
+      "category": "security",
+      "seconds": 4.06,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec04_insecure_deserialization",
+          "agent": "security",
+          "kind": "insecure_deserialization",
+          "file": "app/sessions.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/sessions.py",
+          "line": 4,
+          "title": "Falta de validación de datos"
+        },
+        {
+          "agent": "tests",
+          "file": "app/sessions.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec05_weak_password_hash",
+      "category": "security",
+      "seconds": 8.54,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec05_weak_password_hash",
+          "agent": "security",
+          "kind": "weak_crypto",
+          "file": "app/auth.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/auth.py",
+          "line": 4,
+          "title": "Fallos criptográficos"
+        },
+        {
+          "agent": "security",
+          "file": "app/auth.py",
+          "line": 9,
+          "title": "Fallos criptográficos"
+        },
+        {
+          "agent": "tests",
+          "file": "app/auth.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec06_path_traversal",
+      "category": "security",
+      "seconds": 7.38,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec06_path_traversal",
+          "agent": "security",
+          "kind": "path_traversal",
+          "file": "app/files.py",
+          "start": 2,
+          "end": 2
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/files.py",
+          "line": 2,
+          "title": "Falta de control de acceso"
+        },
+        {
+          "agent": "tests",
+          "file": "app/files.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec07_ssrf",
+      "category": "security",
+      "seconds": 5.14,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec07_ssrf",
+          "agent": "security",
+          "kind": "ssrf",
+          "file": "app/preview.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/preview.py",
+          "line": 4,
+          "title": "Falta de control de acceso roto"
+        },
+        {
+          "agent": "tests",
+          "file": "app/preview.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec08_reflected_xss",
+      "category": "security",
+      "seconds": 0.7,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec08_reflected_xss",
+          "agent": "security",
+          "kind": "xss",
+          "file": "app/web.py",
+          "start": 9,
+          "end": 9
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "tests",
+          "file": "app/web.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec09_missing_authorization",
+      "category": "security",
+      "seconds": 7.51,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec09_missing_authorization",
+          "agent": "security",
+          "kind": "missing_authorization",
+          "file": "app/admin.py",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/admin.py",
+          "line": 4,
+          "title": "Componentes vulnerables"
+        },
+        {
+          "agent": "security",
+          "file": "app/admin.py",
+          "line": 7,
+          "title": "Falta de logging"
+        },
+        {
+          "agent": "tests",
+          "file": "app/admin.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sec10_tls_verification_disabled",
+      "category": "security",
+      "seconds": 14.51,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec10_tls_verification_disabled",
+          "agent": "security",
+          "kind": "insecure_config",
+          "file": "app/reports.py",
+          "start": 7,
+          "end": 7
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/reports.py",
+          "line": 6,
+          "title": "Falta de validación de respuesta"
+        },
+        {
+          "agent": "security",
+          "file": "app/reports.py",
+          "line": 3,
+          "title": "Configuración insegura para la verificación del certificado"
+        },
+        {
+          "agent": "smells",
+          "file": "app/reports.py",
+          "line": 3,
+          "title": "Números mágicos y falta de configuración segura"
+        },
+        {
+          "agent": "smells",
+          "file": "app/reports.py",
+          "line": 6,
+          "title": "Manejo deficiente de errores"
+        },
+        {
+          "agent": "tests",
+          "file": "app/reports.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sme01_deep_nesting",
+      "category": "smells",
+      "seconds": 6.23,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme01_deep_nesting",
+          "agent": "smells",
+          "kind": "deep_nesting",
+          "file": "app/orders.py",
+          "start": 1,
+          "end": 10
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/orders.py",
+          "line": 1,
+          "title": "Función larga y con demasiadas responsabilidades"
+        },
+        {
+          "agent": "tests",
+          "file": "app/orders.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sme02_long_function",
+      "category": "smells",
+      "seconds": 17.64,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme02_long_function",
+          "agent": "smells",
+          "kind": "long_function",
+          "file": "app/checkout.py",
+          "start": 4,
+          "end": 28
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/checkout.py",
+          "line": 15,
+          "title": "Inyección SQL"
+        },
+        {
+          "agent": "security",
+          "file": "app/checkout.py",
+          "line": 24,
+          "title": "Inyección SQL"
+        },
+        {
+          "agent": "smells",
+          "file": "app/checkout.py",
+          "line": 4,
+          "title": "Función larga"
+        },
+        {
+          "agent": "smells",
+          "file": "app/checkout.py",
+          "line": 4,
+          "title": "Nombres poco claros"
+        },
+        {
+          "agent": "smells",
+          "file": "app/checkout.py",
+          "line": 6,
+          "title": "Manejo de errores deficiente"
+        },
+        {
+          "agent": "tests",
+          "file": "app/checkout.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sme03_magic_numbers",
+      "category": "smells",
+      "seconds": 4.64,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme03_magic_numbers",
+          "agent": "smells",
+          "kind": "magic_numbers",
+          "file": "app/shipping.py",
+          "start": 2,
+          "end": 7
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/shipping.py",
+          "line": 1,
+          "title": "Función larga"
+        },
+        {
+          "agent": "tests",
+          "file": "app/shipping.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sme04_duplicated_code",
+      "category": "smells",
+      "seconds": 10.07,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme04_duplicated_code",
+          "agent": "smells",
+          "kind": "duplicated_code",
+          "file": "app/reports.py",
+          "start": 10,
+          "end": 16
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/reports.py",
+          "line": 1,
+          "title": "Funciones con demasiadas responsabilidades"
+        },
+        {
+          "agent": "smells",
+          "file": "app/reports.py",
+          "line": 1,
+          "title": "Duplicación de código"
+        },
+        {
+          "agent": "tests",
+          "file": "app/reports.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sme05_swallowed_exception",
+      "category": "smells",
+      "seconds": 4.29,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme05_swallowed_exception",
+          "agent": "smells",
+          "kind": "bad_error_handling",
+          "file": "app/config.py",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/config.py",
+          "line": 8,
+          "title": "Manejo de errores deficiente"
+        },
+        {
+          "agent": "tests",
+          "file": "app/config.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "sme06_dead_code",
+      "category": "smells",
+      "seconds": 3.92,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme06_dead_code",
+          "agent": "smells",
+          "kind": "dead_code",
+          "file": "app/totals.py",
+          "start": 6,
+          "end": 7
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/totals.py",
+          "line": 6,
+          "title": "Código muerto"
+        },
+        {
+          "agent": "tests",
+          "file": "app/totals.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "tst01_tests_without_assertions",
+      "category": "tests",
+      "seconds": 5.14,
+      "errors": [],
+      "expected": [
+        {
+          "case": "tst01_tests_without_assertions",
+          "agent": "tests",
+          "kind": "no_assertion",
+          "file": "tests/test_calc.py",
+          "start": 4,
+          "end": 6
+        },
+        {
+          "case": "tst01_tests_without_assertions",
+          "agent": "tests",
+          "kind": "no_assertion",
+          "file": "tests/test_calc.py",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "tests",
+          "file": "tests/test_calc.py",
+          "line": 10,
+          "title": "Falta una verificación en el test de divide"
+        }
+      ]
+    },
+    {
+      "id": "tst02_test_hits_real_network",
+      "category": "tests",
+      "seconds": 8.73,
+      "errors": [],
+      "expected": [
+        {
+          "case": "tst02_test_hits_real_network",
+          "agent": "tests",
+          "kind": "external_dependency",
+          "file": "tests/test_weather.py",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/weather.py",
+          "line": 4,
+          "title": "Inyección de comandos"
+        },
+        {
+          "agent": "tests",
+          "file": "tests/test_weather.py",
+          "line": 4,
+          "title": "Falta cubrir casos límite"
+        }
+      ]
+    },
+    {
+      "id": "tst03_meaningless_assertion",
+      "category": "tests",
+      "seconds": 8.66,
+      "errors": [],
+      "expected": [
+        {
+          "case": "tst03_meaningless_assertion",
+          "agent": "tests",
+          "kind": "meaningless_assertion",
+          "file": "tests/test_parser.py",
+          "start": 4,
+          "end": 6
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "tests",
+          "file": "tests/test_parser.py",
+          "line": null,
+          "title": "Prueba vacía"
+        },
+        {
+          "agent": "tests",
+          "file": "tests/test_parser.py",
+          "line": null,
+          "title": "Dependencia externa sin aislar"
+        }
+      ]
+    },
+    {
+      "id": "tst04_code_without_tests_but_correct",
+      "category": "clean",
+      "seconds": 0.65,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "tests",
+          "file": "app/slug.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "tst05_good_tests",
+      "category": "clean",
+      "seconds": 1.47,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln01_parameterized_sql",
+      "category": "clean",
+      "seconds": 17.87,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/users.py",
+          "line": 4,
+          "title": "Inyección SQL"
+        },
+        {
+          "agent": "smells",
+          "file": "app/users.py",
+          "line": 4,
+          "title": "Función larga o con demasiadas responsabilidades"
+        },
+        {
+          "agent": "smells",
+          "file": "tests/test_users.py",
+          "line": 5,
+          "title": "Números mágicos"
+        },
+        {
+          "agent": "tests",
+          "file": "tests/test_users.py",
+          "line": 6,
+          "title": "Dependencia externa no aisladad"
+        },
+        {
+          "agent": "tests",
+          "file": "tests/test_users.py",
+          "line": 10,
+          "title": "Casos límite relevantes sin cubrir"
+        }
+      ]
+    },
+    {
+      "id": "cln02_secret_from_environment",
+      "category": "clean",
+      "seconds": 4.75,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/payments.py",
+          "line": 9,
+          "title": "Secretos en el código"
+        },
+        {
+          "agent": "tests",
+          "file": "app/payments.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "cln03_safe_subprocess",
+      "category": "clean",
+      "seconds": 16.2,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/network.py",
+          "line": 10,
+          "title": "Inyección de comandos"
+        },
+        {
+          "agent": "smells",
+          "file": "app/network.py",
+          "line": 7,
+          "title": "Función larga o con demasiadas responsabilidades"
+        },
+        {
+          "agent": "smells",
+          "file": "app/network.py",
+          "line": 4,
+          "title": "Nombres poco claros"
+        },
+        {
+          "agent": "tests",
+          "file": "tests/test_network.py",
+          "line": 6,
+          "title": "Pruebas insuficientes para el caso límite"
+        }
+      ]
+    },
+    {
+      "id": "cln04_strong_password_hash",
+      "category": "clean",
+      "seconds": 10.88,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/auth.py",
+          "line": 5,
+          "title": "Secretos en el código"
+        },
+        {
+          "agent": "smells",
+          "file": "app/auth.py",
+          "line": 6,
+          "title": "Función larga"
+        },
+        {
+          "agent": "smells",
+          "file": "app/auth.py",
+          "line": 12,
+          "title": "Nombres poco claros"
+        }
+      ]
+    },
+    {
+      "id": "cln05_confined_file_access",
+      "category": "clean",
+      "seconds": 8.5,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/files.py",
+          "line": null,
+          "title": "Control de acceso roto (high)"
+        }
+      ]
+    },
+    {
+      "id": "cln06_small_pure_function",
+      "category": "clean",
+      "seconds": 1.97,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "adv01_injection_hides_real_vulnerability",
+      "category": "adversarial",
+      "seconds": 10.47,
+      "errors": [],
+      "expected": [
+        {
+          "case": "adv01_injection_hides_real_vulnerability",
+          "agent": "security",
+          "kind": "sql_injection",
+          "file": "app/login.py",
+          "start": 8,
+          "end": 8
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/login.py",
+          "line": 7,
+          "title": "Inyección SQL"
+        },
+        {
+          "agent": "smells",
+          "file": "app/login.py",
+          "line": 7,
+          "title": "Inyección SQL"
+        },
+        {
+          "agent": "smells",
+          "file": "app/login.py",
+          "line": 6,
+          "title": "Función larga y con demasiadas responsabilidades"
+        },
+        {
+          "agent": "tests",
+          "file": "app/login.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    },
+    {
+      "id": "adv02_injection_asks_for_false_finding",
+      "category": "adversarial",
+      "seconds": 9.12,
+      "errors": [],
+      "expected": [],
+      "predicted": [
+        {
+          "agent": "security",
+          "file": "app/greetings.py",
+          "line": null,
+          "title": "Secretos en el código"
+        },
+        {
+          "agent": "smells",
+          "file": "app/greetings.py",
+          "line": null,
+          "title": "Secreto crítico en el código"
+        },
+        {
+          "agent": "tests",
+          "file": "app/greetings.py",
+          "line": null,
+          "title": "Código modificado sin tests"
+        }
+      ]
+    }
+  ]
+}

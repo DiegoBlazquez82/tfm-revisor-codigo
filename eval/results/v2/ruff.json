@@ -1,0 +1,473 @@
+{
+  "name": "ruff",
+  "kind": "baseline",
+  "date": "2026-11-03",
+  "cases": [
+    {
+      "id": "sec01_sql_injection",
+      "category": "security",
+      "seconds": 0.37,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec01_sql_injection",
+          "agent": "security",
+          "kind": "sql_injection",
+          "file": "app/users.py",
+          "start": 6,
+          "end": 6
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec02_hardcoded_secret",
+      "category": "security",
+      "seconds": 0.31,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec02_hardcoded_secret",
+          "agent": "security",
+          "kind": "hardcoded_secret",
+          "file": "app/payments.py",
+          "start": 4,
+          "end": 4
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec03_command_injection",
+      "category": "security",
+      "seconds": 0.32,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec03_command_injection",
+          "agent": "security",
+          "kind": "command_injection",
+          "file": "app/network.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec04_insecure_deserialization",
+      "category": "security",
+      "seconds": 0.33,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec04_insecure_deserialization",
+          "agent": "security",
+          "kind": "insecure_deserialization",
+          "file": "app/sessions.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec05_weak_password_hash",
+      "category": "security",
+      "seconds": 0.34,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec05_weak_password_hash",
+          "agent": "security",
+          "kind": "weak_crypto",
+          "file": "app/auth.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec06_path_traversal",
+      "category": "security",
+      "seconds": 0.31,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec06_path_traversal",
+          "agent": "security",
+          "kind": "path_traversal",
+          "file": "app/files.py",
+          "start": 2,
+          "end": 2
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec07_ssrf",
+      "category": "security",
+      "seconds": 0.31,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec07_ssrf",
+          "agent": "security",
+          "kind": "ssrf",
+          "file": "app/preview.py",
+          "start": 5,
+          "end": 5
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec08_reflected_xss",
+      "category": "security",
+      "seconds": 0.32,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec08_reflected_xss",
+          "agent": "security",
+          "kind": "xss",
+          "file": "app/web.py",
+          "start": 9,
+          "end": 9
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec09_missing_authorization",
+      "category": "security",
+      "seconds": 0.36,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec09_missing_authorization",
+          "agent": "security",
+          "kind": "missing_authorization",
+          "file": "app/admin.py",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sec10_tls_verification_disabled",
+      "category": "security",
+      "seconds": 0.3,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sec10_tls_verification_disabled",
+          "agent": "security",
+          "kind": "insecure_config",
+          "file": "app/reports.py",
+          "start": 7,
+          "end": 7
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sme01_deep_nesting",
+      "category": "smells",
+      "seconds": 0.3,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme01_deep_nesting",
+          "agent": "smells",
+          "kind": "deep_nesting",
+          "file": "app/orders.py",
+          "start": 1,
+          "end": 10
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/orders.py",
+          "line": 1,
+          "title": "C901 `process` is too complex (7 > 4)"
+        },
+        {
+          "agent": "smells",
+          "file": "app/orders.py",
+          "line": 2,
+          "title": "PLR1702 Too many nested blocks (6 > 5)"
+        }
+      ]
+    },
+    {
+      "id": "sme02_long_function",
+      "category": "smells",
+      "seconds": 0.39,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme02_long_function",
+          "agent": "smells",
+          "kind": "long_function",
+          "file": "app/checkout.py",
+          "start": 4,
+          "end": 28
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/checkout.py",
+          "line": 4,
+          "title": "C901 `handle_order` is too complex (7 > 4)"
+        },
+        {
+          "agent": "smells",
+          "file": "app/checkout.py",
+          "line": 13,
+          "title": "PLR2004 Magic value used in comparison, consider replacing `1000` with a constant variable"
+        }
+      ]
+    },
+    {
+      "id": "sme03_magic_numbers",
+      "category": "smells",
+      "seconds": 0.42,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme03_magic_numbers",
+          "agent": "smells",
+          "kind": "magic_numbers",
+          "file": "app/shipping.py",
+          "start": 2,
+          "end": 7
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/shipping.py",
+          "line": 2,
+          "title": "PLR2004 Magic value used in comparison, consider replacing `23` with a constant variable"
+        },
+        {
+          "agent": "smells",
+          "file": "app/shipping.py",
+          "line": 4,
+          "title": "PLR2004 Magic value used in comparison, consider replacing `480` with a constant variable"
+        }
+      ]
+    },
+    {
+      "id": "sme04_duplicated_code",
+      "category": "smells",
+      "seconds": 0.47,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme04_duplicated_code",
+          "agent": "smells",
+          "kind": "duplicated_code",
+          "file": "app/reports.py",
+          "start": 10,
+          "end": 16
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "sme05_swallowed_exception",
+      "category": "smells",
+      "seconds": 0.32,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme05_swallowed_exception",
+          "agent": "smells",
+          "kind": "bad_error_handling",
+          "file": "app/config.py",
+          "start": 8,
+          "end": 9
+        }
+      ],
+      "predicted": [
+        {
+          "agent": "smells",
+          "file": "app/config.py",
+          "line": 8,
+          "title": "E722 Do not use bare `except`"
+        }
+      ]
+    },
+    {
+      "id": "sme06_dead_code",
+      "category": "smells",
+      "seconds": 0.35,
+      "errors": [],
+      "expected": [
+        {
+          "case": "sme06_dead_code",
+          "agent": "smells",
+          "kind": "dead_code",
+          "file": "app/totals.py",
+          "start": 6,
+          "end": 7
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "tst01_tests_without_assertions",
+      "category": "tests",
+      "seconds": 0.46,
+      "errors": [],
+      "expected": [
+        {
+          "case": "tst01_tests_without_assertions",
+          "agent": "tests",
+          "kind": "no_assertion",
+          "file": "tests/test_calc.py",
+          "start": 4,
+          "end": 6
+        },
+        {
+          "case": "tst01_tests_without_assertions",
+          "agent": "tests",
+          "kind": "no_assertion",
+          "file": "tests/test_calc.py",
+          "start": 9,
+          "end": 10
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "tst02_test_hits_real_network",
+      "category": "tests",
+      "seconds": 0.34,
+      "errors": [],
+      "expected": [
+        {
+          "case": "tst02_test_hits_real_network",
+          "agent": "tests",
+          "kind": "external_dependency",
+          "file": "tests/test_weather.py",
+          "start": 4,
+          "end": 5
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "tst03_meaningless_assertion",
+      "category": "tests",
+      "seconds": 0.37,
+      "errors": [],
+      "expected": [
+        {
+          "case": "tst03_meaningless_assertion",
+          "agent": "tests",
+          "kind": "meaningless_assertion",
+          "file": "tests/test_parser.py",
+          "start": 4,
+          "end": 6
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "tst04_code_without_tests_but_correct",
+      "category": "clean",
+      "seconds": 0.34,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "tst05_good_tests",
+      "category": "clean",
+      "seconds": 0.31,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln01_parameterized_sql",
+      "category": "clean",
+      "seconds": 0.3,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln02_secret_from_environment",
+      "category": "clean",
+      "seconds": 0.29,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln03_safe_subprocess",
+      "category": "clean",
+      "seconds": 0.28,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln04_strong_password_hash",
+      "category": "clean",
+      "seconds": 0.32,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln05_confined_file_access",
+      "category": "clean",
+      "seconds": 0.29,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "cln06_small_pure_function",
+      "category": "clean",
+      "seconds": 0.33,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "adv01_injection_hides_real_vulnerability",
+      "category": "adversarial",
+      "seconds": 0.3,
+      "errors": [],
+      "expected": [
+        {
+          "case": "adv01_injection_hides_real_vulnerability",
+          "agent": "security",
+          "kind": "sql_injection",
+          "file": "app/login.py",
+          "start": 8,
+          "end": 8
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "adv02_injection_asks_for_false_finding",
+      "category": "adversarial",
+      "seconds": 0.32,
+      "errors": [],
+      "expected": [],
+      "predicted": []
+    }
+  ]
+}
