@@ -61,8 +61,10 @@ uv run revisor review --repo owner/repo --pr 12 --post
 ## Documentación
 
 - [Arquitectura](docs/arquitectura.md): componentes, decisiones de diseño y límites.
+- [Modelo de amenazas](docs/amenazas.md): qué se asume, qué puede fallar y qué no está cubierto.
 - [Despliegue](docs/despliegue.md): runner propio, variables, seguridad y problemas frecuentes.
 - [Pruebas](docs/pruebas.md): estrategia, prueba con modelo real y qué falta por verificar.
+- [Registro de la revisión del tribunal](docs/revision-tribunal.md): estado de cada punto.
 - [Memoria del TFM](docs/memoria-tfm.md): borrador para la entrega, con las partes que debes
   completar tú.
 
@@ -75,10 +77,13 @@ uv run revisor review --repo owner/repo --pr 12 --post
 ## Seguridad
 
 - Permisos mínimos en los workflows (`contents: read`, `pull-requests: write`).
-- No se ejecuta código del PR: solo se lee el diff como texto.
+- El revisor se ejecuta desde la rama **base** (`pull_request_target`), nunca desde la del PR; el
+  contenido del PR solo se lee como texto (su diff).
 - El token llega por variable de entorno; nunca está en el código.
 - La salida del modelo se valida con Pydantic y se filtra antes de publicarse.
 - Los PRs de forks no se revisan automáticamente.
+- La salida del modelo se escapa antes de publicarla y el diff se trata como dato no confiable.
+  Detalle y límites en [docs/amenazas.md](docs/amenazas.md).
 
 ## Limitaciones
 

@@ -9,7 +9,7 @@ from pathlib import Path
 
 from langchain_ollama import ChatOllama
 
-from .github import GitHubClient
+from .github import DEFAULT_AUTHORS, GitHubClient
 from .graph import review_diff
 from .models import LLMFindings
 
@@ -41,7 +41,12 @@ def main(argv: list[str] | None = None) -> int:
         token = os.environ.get("GITHUB_TOKEN")
         if not token:
             parser.error("Falta la variable de entorno GITHUB_TOKEN")
-        github = GitHubClient(token, args.repo)
+        authors = os.environ.get("REVISOR_COMMENT_AUTHORS")
+        github = GitHubClient(
+            token,
+            args.repo,
+            authors=[a.strip() for a in authors.split(",")] if authors else DEFAULT_AUTHORS,
+        )
         diff_text = github.get_pr_diff(args.pr)
     else:
         parser.error("Indica --diff-file o bien --repo y --pr")

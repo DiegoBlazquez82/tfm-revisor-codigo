@@ -1,7 +1,12 @@
 name: Revisión del PR con agentes
 
+# pull_request_target: el workflow y el código del revisor se toman de la rama BASE del
+# repositorio (ya revisada y fusionada), no de la rama del PR. Así un PR no puede cambiar
+# el revisor, ni este workflow, para ejecutar código en el runner propio.
+# NUNCA se hace checkout de la rama del PR en este job: el PR solo se lee como texto (su diff)
+# a través de la API de GitHub.
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
 
 # Permisos mínimos: leer el código y comentar en el PR.
@@ -15,16 +20,19 @@ concurrency:
 
 jobs:
   review:
-    # No se ejecuta en PRs de forks: ahí GITHUB_TOKEN no puede comentar y no se debe
-    # ejecutar código no confiable en un runner propio.
+    # Solo PRs del propio repositorio. Los de forks no se revisan automáticamente: el texto del
+    # PR es entrada de un tercero que acaba en el prompt del modelo (ver docs/amenazas.md).
     if: github.event.pull_request.head.repo.full_name == github.repository
     # Runner propio con Ollama instalado (etiqueta "ollama").
     runs-on: [self-hosted, ollama]
     timeout-minutes: 15
     steps:
+      # Sin `ref`: en pull_request_target esto descarga la rama base, no la del PR.
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync
+      - run: uv sync --locked
       - name: Revisar y comentar
         run: >
           uv run revisor review

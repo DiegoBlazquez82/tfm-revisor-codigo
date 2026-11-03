@@ -73,10 +73,10 @@ def test_review_of_empty_diff_does_not_call_the_model():
 
 
 def test_render_markdown_without_findings():
-    assert "No se han encontrado problemas" in render_markdown([], 2, False)
+    assert "No se han encontrado problemas" in render_markdown([], 2)
 
 
-def test_untested_code_gets_deterministic_finding_without_calling_the_model():
+def test_untested_code_finding_comes_from_a_rule():
     from revisor.agents import untested_code_findings
 
     findings = untested_code_findings(parse_diff(SAMPLE))

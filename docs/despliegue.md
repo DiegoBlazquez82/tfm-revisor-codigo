@@ -54,7 +54,11 @@ al terminar, un comentario con el informe en el PR. Un nuevo push actualiza ese 
 - **Permisos mínimos:** `contents: read` y `pull-requests: write`.
 - **Sin PRs de forks:** el job se salta si el PR viene de otro repositorio. Ahí `GITHUB_TOKEN` no
   puede comentar y, sobre todo, no se debe ejecutar código no confiable en un runner propio.
-- **No se ejecuta código del PR.** El revisor solo lee el diff como texto a través de la API.
+- **El código del PR no se ejecuta.** El workflow usa `pull_request_target`, por lo que el workflow y
+  el revisor salen de la rama **base**; no hay checkout de la rama del PR y su diff solo se lee como
+  texto por la API. Una versión anterior hacía lo contrario (ejecutaba el revisor desde la rama del
+  PR); está corregido y explicado en [amenazas.md](amenazas.md). **No añadas al job ningún paso que
+  haga checkout o ejecute algo de la rama del PR.**
 - **Concurrencia:** un push nuevo cancela la revisión anterior del mismo PR.
 - **Tiempo máximo:** 15 minutos por ejecución.
 - **Datos:** el contenido del diff se envía al servidor Ollama indicado. Al ser un servidor propio,

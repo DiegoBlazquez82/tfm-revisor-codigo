@@ -16,6 +16,7 @@ from .report import aggregate, render_markdown
 class ReviewState(TypedDict, total=False):
     files: list[ChangedFile]
     findings: Annotated[list[Finding], operator.add]
+    errors: Annotated[list[str], operator.add]
     report: str
 
 
@@ -24,9 +25,11 @@ def build_graph(llm: StructuredLLM):
 
     def aggregator(state: ReviewState) -> dict[str, Any]:
         files = state["files"]
-        _, truncated = render_diff(files)
+        _, omitted = render_diff(files)
         merged = aggregate(state.get("findings", []))
-        return {"report": render_markdown(merged, len(files), truncated)}
+        return {
+            "report": render_markdown(merged, len(files), omitted, state.get("errors", [])),
+        }
 
     graph = StateGraph(ReviewState)
     for name, node in agents.items():
@@ -42,6 +45,6 @@ def review_diff(diff_text: str, llm: StructuredLLM) -> str:
     """Devuelve el comentario en Markdown para un diff unificado."""
     files = parse_diff(diff_text)
     if not files:
-        return render_markdown([], 0, False)
-    result = build_graph(llm).invoke({"files": files, "findings": []})
+        return render_markdown([], 0)
+    result = build_graph(llm).invoke({"files": files, "findings": [], "errors": []})
     return result["report"]

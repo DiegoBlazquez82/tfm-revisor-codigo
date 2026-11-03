@@ -4,7 +4,7 @@ SAMPLE = """diff --git a/app/db.py b/app/db.py
 index 111..222 100644
 --- a/app/db.py
 +++ b/app/db.py
-@@ -10,3 +10,5 @@ def connect():
+@@ -10,2 +10,4 @@ def connect():
      conn = make()
 +    query = "SELECT * FROM users WHERE id = " + user_id
 +    return conn.execute(query)

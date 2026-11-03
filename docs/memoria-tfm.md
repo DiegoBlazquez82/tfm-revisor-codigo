@@ -26,7 +26,8 @@ revisor humano.
 1. Detectar problemas de seguridad del OWASP Top 10 en el código añadido.
 2. Señalar code smells que perjudican el mantenimiento.
 3. Avisar cuando un cambio de código no trae pruebas.
-4. Integrarlo en el flujo de trabajo (GitHub Actions) sin ejecutar código del PR.
+4. Integrarlo en el flujo de trabajo (GitHub Actions) sin ejecutar código del PR: el revisor se
+   ejecuta desde la rama base.
 5. Mantener el código dentro de la red mediante un modelo local.
 
 **Fuera de alcance:** corregir el código automáticamente, sustituir la revisión humana, analizar
@@ -76,8 +77,11 @@ hallazgos útiles, falsos positivos, tiempo medio por revisión.
 
 ## 7. Seguridad y privacidad
 
-Ver [despliegue.md](despliegue.md). Permisos mínimos, sin ejecución de código del PR, sin PRs de
-forks, token efímero de Actions, modelo local para que el código no salga de la red.
+Modelo de amenazas completo en [amenazas.md](amenazas.md) y medidas de despliegue en
+[despliegue.md](despliegue.md). Resumen: permisos mínimos, revisor ejecutado desde la rama base
+(`pull_request_target`), sin PRs de forks, token efímero de Actions, salida del modelo escapada antes
+de publicarse, diff tratado como dato no confiable y modelo local para que el código no salga de la
+red. La defensa frente a inyección de prompts es parcial y así se declara.
 
 ## 8. Uso de IA en el desarrollo
 
