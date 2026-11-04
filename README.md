@@ -50,7 +50,7 @@ Requisitos: [uv](https://docs.astral.sh/uv/) (instala Python 3.11 si falta) y un
 un modelo que admita salida estructurada (`ollama pull qwen2.5:7b-instruct`).
 
 ```bash
-git clone <URL del repositorio>
+git clone https://github.com/DiegoBlazquez82/tfm-revisor-codigo.git
 cd tfm-revisor-codigo
 uv sync
 
@@ -119,7 +119,7 @@ GitHub Actions.
 
 | Entregable | Enlace |
 |---|---|
-| Repositorio público de GitHub | **[PENDIENTE: URL]** |
+| Repositorio público de GitHub | https://github.com/DiegoBlazquez82/tfm-revisor-codigo |
 | Despliegue / acceso al proyecto en funcionamiento | **[PENDIENTE: URL de un PR con el comentario del revisor]** |
 | Slides de la presentación | **[PENDIENTE: URL]** |
 | Vídeo (explicación con captura de pantalla) | **[PENDIENTE: URL]** |
