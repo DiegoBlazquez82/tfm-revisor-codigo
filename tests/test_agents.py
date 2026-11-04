@@ -153,6 +153,13 @@ def test_sanitize_accepts_paths_with_diff_prefixes():
     assert result[0].line == 11
 
 
+def test_sanitize_resolves_bare_file_name_when_unique():
+    files = parse_diff(SAMPLE)
+    raw = LLMFindings(findings=[LLMFinding(file="db.py", title="t", detail="d", line=11)])
+    result = sanitize(raw, "security", files)
+    assert [f.file for f in result] == ["app/db.py"]
+
+
 def test_sanitize_logs_discarded_findings(caplog):
     files = parse_diff(SAMPLE)
     raw = LLMFindings(findings=[LLMFinding(file="inventado.py", title="t", detail="d")])

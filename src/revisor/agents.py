@@ -159,6 +159,12 @@ def sanitize(raw: LLMFindings, agent: str, files: list[ChangedFile]) -> list[Fin
         path = item.file if item.file in by_path else normalize_path(item.file)
         changed = by_path.get(path)
         if changed is None:
+            # El modelo suele dar solo el nombre (`db.py`): vale si identifica un único fichero.
+            matches = [f for p, f in by_path.items() if p.endswith("/" + path)]
+            if len(matches) == 1:
+                changed = matches[0]
+                path = changed.path
+        if changed is None:
             logger.warning("%s: hallazgo descartado, fichero fuera del diff: %r", agent, item.file)
             continue
         line = item.line if item.line in changed.added_lines else None
