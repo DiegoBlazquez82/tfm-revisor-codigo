@@ -120,7 +120,7 @@ GitHub Actions.
 | Entregable | Enlace |
 |---|---|
 | Repositorio público de GitHub | https://github.com/DiegoBlazquez82/tfm-revisor-codigo |
-| Despliegue / acceso al proyecto en funcionamiento | **[PENDIENTE: URL de un PR con el comentario del revisor]** |
+| Despliegue / acceso al proyecto en funcionamiento | https://github.com/DiegoBlazquez82/tfm-revisor-codigo/pull/1 |
 | Slides de la presentación | **[PENDIENTE: URL]** |
 | Vídeo (explicación con captura de pantalla) | **[PENDIENTE: URL]** |
 

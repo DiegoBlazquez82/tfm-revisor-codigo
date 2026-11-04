@@ -31,7 +31,7 @@ Rellenar a mano; no se ha enviado nada en nombre del autor.
 | Campo | Valor |
 |---|---|
 | Repositorio público | https://github.com/DiegoBlazquez82/tfm-revisor-codigo |
-| Despliegue / acceso | URL de un PR con el comentario del revisor **(pendiente)** |
+| Despliegue / acceso | https://github.com/DiegoBlazquez82/tfm-revisor-codigo/pull/1 |
 | Slides | URL de las slides subidas (p. ej. Google Slides o similar) **(pendiente)** |
 | Vídeo | URL del vídeo **(pendiente)** |
 | Usuario y contraseña de prueba | No aplica: no hay login |
