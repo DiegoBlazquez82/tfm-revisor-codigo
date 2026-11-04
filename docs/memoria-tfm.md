@@ -113,8 +113,25 @@ solo etiquetador que no es humano, código más fácil que el real y solo Python
 
 Cifras completas en [evaluacion-resultados.md](evaluacion-resultados.md).
 
-> **[COMPLETAR cuando termine la evaluación]** Tabla resumen por modelo y agente, comparación con
-> Bandit y Ruff, falsos positivos en casos limpios, tiempos y lectura de los resultados.
+Evaluación sobre 29 casos sintéticos (21 hallazgos etiquetados, 9 casos sin problemas). Un hallazgo
+cuenta como acierto si cae en la línea etiquetada (±1). Una sola ejecución por modelo.
+
+| Sistema | TP | FP | FN | Precisión | Exhaustividad | F1 | Casos limpios con FP |
+|---|---|---|---|---|---|---|---|
+| `qwen2.5:7b-instruct` (informe final) | 17 | 37 | 4 | 0,31 | 0,81 | 0,45 | 6 de 9 |
+| `qwen3:8b` (informe final) | 11 | 66 | 10 | 0,14 | 0,52 | 0,22 | 7 de 9 |
+| Bandit (solo seguridad) | 7 | 5 | 4 | 0,58 | 0,64 | 0,61 | 1 de 9 |
+| Ruff (solo calidad) | 4 | 3 | 2 | 0,57 | 0,67 | 0,62 | 0 de 9 |
+
+- **Modelos.** `qwen2.5:7b-instruct` es claramente mejor que `qwen3:8b` en este problema, que además
+  da más ruido (66 falsos positivos). `qwen3.5:9b` se descartó: la ejecución se interrumpió al
+  fallar con frecuencia la salida estructurada (JSON no válido) y tardar entre 700 y 1400 s por
+  caso, sin resultados completos.
+- **Tiempos.** `qwen2.5`: 7,9 s por caso. Los tiempos de `qwen3:8b` (mediana 226 s) y de la v2 no son
+  comparables: el servidor Ollama estaba compartido con otras evaluaciones a la vez.
+- **Mejora de la cita literal (v2).** Con `qwen2.5` bajó la precisión (0,31 → 0,25) y la
+  exhaustividad (0,81 → 0,67); ver [evaluacion-comparacion.md](evaluacion-comparacion.md). No se
+  adopta como mejora de calidad.
 
 Observaciones ya verificadas con `qwen2.5:7b-instruct` (primer modelo evaluado):
 - **Alta exhaustividad, baja precisión.** Encuentra casi todo lo etiquetado, pero añade muchos
@@ -222,10 +239,22 @@ del máster.
 
 ## 12. Conclusiones
 
-> **[COMPLETAR]** Redactar cuando estén los resultados finales. Debe responder, con cifras: ¿aporta
-> el modelo algo frente a Bandit y Ruff?, ¿es utilizable con este nivel de falsos positivos?, ¿qué
-> habría que cambiar? Las observaciones del apartado 7 ya apuntan a que, tal como está, sirve como
-> ayuda a un revisor humano pero no como filtro automático.
+- **¿Aporta algo frente a Bandit y Ruff?** Cobertura, no precisión. Con `qwen2.5` el modelo
+  encuentra más de lo etiquetado (exhaustividad 0,81 frente a 0,64 y 0,67), incluidos casos que las
+  reglas no tienen (tests sin aserciones, código sin tests), pero con una precisión de 0,31 frente a
+  0,58 y 0,57. Es unas diez veces más lento.
+- **¿Es utilizable?** Como ayuda a un revisor humano, sí; como filtro automático, no: de cada tres
+  hallazgos, dos son falsos y 6 de 9 casos correctos recibieron algún aviso. El informe lo presenta
+  como apoyo y no como veredicto.
+- **Un modelo mayor no es mejor por serlo.** `qwen3:8b` empeoró (F1 0,22) y `qwen3.5:9b` no
+  cumplió el formato. Con modelos locales pequeños la elección hay que medirla, no suponerla.
+- **La defensa por prompt no basta.** Una orden en el código logró que el modelo inventara un hallazgo
+  (`adv02`), y exigir cita literal lo redujo pero no lo eliminó (ver [amenazas.md](amenazas.md)).
+- **Qué cambiaría.** Combinar el modelo con Bandit y Ruff (reglas como base, modelo para lo que no
+  cubren o para explicar), validar cada hallazgo con una segunda pasada, ampliar el conjunto de casos
+  y repetir las ejecuciones para medir la variación entre ellas.
+- **Límites de esta evaluación.** Casos sintéticos y pequeños (29), una ejecución por modelo y
+  tiempos medidos con el servidor compartido.
 
 ## Bibliografía y enlaces
 
