@@ -42,12 +42,9 @@ Primero ejecuto los tests. No necesitan el modelo, porque usan uno simulado.
 
 [EJECUTA: `uv run pytest`]
 
-Son 89 tests y pasan. Ahora reviso un diff de ejemplo con el modelo real.
-
-[EJECUTA: `uv run revisor review --diff-file examples/vulnerable.diff`]
-
-El informe señala el secreto escrito en el código, la inyección SQL y la función con demasiado
-anidamiento, cada uno con fichero y línea.
+Son 89 tests y pasan. La revisión con el modelo real la enseño con el resultado ya guardado, porque el
+servidor de Ollama que uso corre ahora sin GPU y cada revisión tarda minutos; no tiene sentido
+esperarla en directo. Ese resultado es el comentario de este pull request.
 
 ## 3:30 · Pull request de demostración
 

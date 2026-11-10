@@ -9,7 +9,7 @@ El vídeo **debe grabarse con captura de pantalla** (lo exige el PDF del máster
 1. Tener abierto un PR de demostración con el comentario del revisor ya publicado (ver
    [despliegue.md](despliegue.md)).
 2. Tener el repositorio abierto en el navegador y una terminal en la carpeta del proyecto.
-3. Probar antes `uv run revisor review --diff-file examples/vulnerable.diff` con el Ollama accesible.
+3. Probar antes `uv run pytest`. No hace falta Ollama para el vídeo.
 
 Texto completo para leer: [guion-video-texto.md](guion-video-texto.md).
 
@@ -20,7 +20,7 @@ Texto completo para leer: [guion-video-texto.md](guion-video-texto.md).
 | 0:00 | Slide 1 | Qué es el proyecto y que está evaluado con datos, también lo que no salió bien |
 | 0:30 | Slides 2–3 | Problema y arquitectura: tres agentes en paralelo y un agregador |
 | 1:30 | Slide 4 | Seguridad: `pull_request_target`, diff como dato, salida escapada. Contar el error corregido |
-| 2:30 | Terminal | Ejecutar `uv run pytest` (tests sin modelo) y `uv run revisor review --diff-file examples/vulnerable.diff` |
+| 2:30 | Terminal | Ejecutar `uv run pytest` (tests sin modelo). La revisión con el modelo se enseña con el resultado guardado (PR #1), porque Ollama va sin GPU |
 | 3:30 | Navegador | Abrir el PR de demostración y mostrar el comentario único; hacer un push y ver que se actualiza |
 | 4:30 | Slides 5–6 | Metodología y resultados frente a Bandit y Ruff |
 | 5:30 | Slide 7 | La mejora de la cita literal que no funcionó |
