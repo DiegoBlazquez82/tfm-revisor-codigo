@@ -121,7 +121,7 @@ GitHub Actions.
 |---|---|
 | Repositorio público de GitHub | https://github.com/DiegoBlazquez82/tfm-revisor-codigo |
 | Despliegue / acceso al proyecto en funcionamiento | https://github.com/DiegoBlazquez82/tfm-revisor-codigo/pull/1 |
-| Slides de la presentación | **[PENDIENTE: URL]** |
+| Slides de la presentación | https://github.com/DiegoBlazquez82/tfm-revisor-codigo/blob/main/docs/presentacion.pptx |
 | Vídeo (explicación con captura de pantalla) | **[PENDIENTE: URL]** |
 
 ## Documentación

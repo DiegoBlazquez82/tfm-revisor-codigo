@@ -32,7 +32,7 @@ Rellenar a mano; no se ha enviado nada en nombre del autor.
 |---|---|
 | Repositorio público | https://github.com/DiegoBlazquez82/tfm-revisor-codigo |
 | Despliegue / acceso | https://github.com/DiegoBlazquez82/tfm-revisor-codigo/pull/1 |
-| Slides | URL de las slides subidas (p. ej. Google Slides o similar) **(pendiente)** |
+| Slides | https://github.com/DiegoBlazquez82/tfm-revisor-codigo/blob/main/docs/presentacion.pptx |
 | Vídeo | URL del vídeo **(pendiente)** |
 | Usuario y contraseña de prueba | No aplica: no hay login |
 
