@@ -11,6 +11,8 @@ El vídeo **debe grabarse con captura de pantalla** (lo exige el PDF del máster
 2. Tener el repositorio abierto en el navegador y una terminal en la carpeta del proyecto.
 3. Probar antes `uv run revisor review --diff-file examples/vulnerable.diff` con el Ollama accesible.
 
+Texto completo para leer: [guion-video-texto.md](guion-video-texto.md).
+
 ## Guion
 
 | Min | Qué se ve | Qué se dice |
